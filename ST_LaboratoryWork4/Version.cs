@@ -4,10 +4,10 @@ namespace ST_LaboratoryWork4
 {
 	public class Version
 	{
-		private int Major { get; set; }
-		private int Minor { get; set; }
-		private int Patch { get; set; }
-		private string PreRelease { get; set; }
+		internal int Major { get; set; }
+		internal int Minor { get; set; }
+		internal int Patch { get; set; }
+		internal string PreRelease { get; set; }
 
 		public Version (string version)
 		{
@@ -24,12 +24,21 @@ namespace ST_LaboratoryWork4
 			}
 			if (versions.Length == 3)
 			{
+				Minor = int.Parse(versions[1]);
 				Patch = int.Parse(versions[2]);
 			}
 			if (parameters.Length == 2)
 			{
 				PreRelease = parameters[1];
 			}
+		}
+
+		internal Version (int major, int minor, int patch, string preRelease)
+		{
+			Major = major;
+			Minor = minor;
+			Patch = patch;
+			PreRelease = preRelease;
 		}
 
 		private static bool IsCorrect (string version)
@@ -80,16 +89,13 @@ namespace ST_LaboratoryWork4
 
 		private static bool IsMoreOrEqual (Version v1, Version v2)
 		{
-			if (v1.PreRelease == null & v2.PreRelease == null)
+			int release1 = v1.Major * 100 + v1.Minor * 10 + v1.Patch;
+			int release2 = v2.Major * 100 + v2.Minor * 10 + v2.Patch;
+			if (release1 > release2)
 			{
-				int release1 = v1.Major * 100 + v1.Minor * 10 + v1.Patch;
-				int release2 = v2.Major * 100 + v2.Minor * 10 + v2.Patch;
-				if (release1 >= release2)
-				{
-					return true;
-				}
+				return true;
 			}
-			else
+			else if (release1 == release2)
 			{
 				if (v1.PreRelease == null)
 				{
@@ -110,24 +116,24 @@ namespace ST_LaboratoryWork4
 
 		private static bool IsLessOrEqual (Version v1, Version v2)
 		{
-			if (v1.PreRelease == null & v2.PreRelease == null)
+			int release1 = v1.Major * 100 + v1.Minor * 10 + v1.Patch;
+			int release2 = v2.Major * 100 + v2.Minor * 10 + v2.Patch;
+			if (release1 > release2)
 			{
-				int release1 = v1.Major * 100 + v1.Minor * 10 + v1.Patch;
-				int release2 = v2.Major * 100 + v2.Minor * 10 + v2.Patch;
-				if (release1 > release2)
-				{
-					return false;
-				}
+				return false;
 			}
 			else
 			{
-				if (v1.PreRelease == null & v2.PreRelease != null)
+				if (release1 == release2)
 				{
-					return false;
-				}
-				if (v1.PreRelease != null & v2.PreRelease != null && string.Compare(v1.PreRelease, v2.PreRelease) < 0)
-				{
-					return false;
+					if (v1.PreRelease == null & v2.PreRelease != null)
+					{
+						return false;
+					}
+					if (v1.PreRelease != null & v2.PreRelease != null && string.Compare(v1.PreRelease, v2.PreRelease) < 0)
+					{
+						return false;
+					}
 				}
 			}
 			return true;

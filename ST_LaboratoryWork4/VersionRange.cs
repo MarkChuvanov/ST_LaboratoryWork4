@@ -41,9 +41,45 @@ namespace ST_LaboratoryWork4
 			return false;
 		}
 
-		public VersionRange GetVersionRange (Version version)
+		public static VersionRange GetVersionRange (Version version)
 		{
-			return null;
+			int versionValue = version.Major * 100 + version.Minor * 10 + version.Patch;
+			int finalVersionValue;
+			if (version.PreRelease == null)
+			{
+				if (versionValue % 100 == 0)
+				{
+					finalVersionValue = versionValue + 100;
+				}
+				else if (versionValue % 10 == 0)
+				{
+					finalVersionValue = versionValue + 10;
+				}
+				else
+				{
+					finalVersionValue = (versionValue / 10 + 1) * 10;
+				}
+			}
+			else
+			{
+				finalVersionValue = versionValue + 1;
+			}
+			return new VersionRange(version, new Version(finalVersionValue / 100, finalVersionValue % 100 / 10, finalVersionValue % 10, null));
+		}
+
+		public static bool operator == (VersionRange versionRange1, VersionRange versionRange2)
+		{
+			return IsEqual(versionRange1, versionRange2);
+		}
+
+		public static bool operator != (VersionRange versionRange1, VersionRange versionRange2)
+		{
+			return IsEqual(versionRange1, versionRange2);
+		}
+
+		private static bool IsEqual(VersionRange r1, VersionRange r2)
+		{
+			return r1.ToString() == r2.ToString();
 		}
 
 		public override string ToString ()
