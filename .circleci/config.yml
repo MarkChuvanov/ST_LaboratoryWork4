@@ -2,6 +2,9 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+orbs:
+  win: circleci/windows@2.3.0
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
@@ -14,6 +17,7 @@ jobs:
       - image: mcr.microsoft.com/dotnet/core/runtime:2.2
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    executor: win/default
     steps:
       # Checkout the code as the first step.
       - checkout
