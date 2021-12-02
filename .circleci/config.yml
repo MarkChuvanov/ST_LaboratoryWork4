@@ -23,8 +23,6 @@ jobs:
           working_directory: ~/project/App.Tests
           name: Run tests
           command: |
-            dotnet --list-sdks
-            dotnet restore
             dotnet test
 
 # Invoke jobs via workflows
