@@ -14,6 +14,7 @@ namespace ST_LaboratoryWork4
 		public void ToStringTest ()
 		{
 			Assert.AreEqual("[(1.0.0), (1.2.2)]", new VersionRange("1.0.0", "1.2.2").ToString());
+			Assert.IsTrue(VersionRange.GetVersionRange("~1").ToString() == "[(1.0.0), (2.0.0)]");
 		}
 
 		[Test]
