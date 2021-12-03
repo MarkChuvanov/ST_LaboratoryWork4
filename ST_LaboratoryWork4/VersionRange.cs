@@ -96,7 +96,7 @@ namespace ST_LaboratoryWork4
 
 		public override string ToString ()
 		{
-			return $"[({StartVersion}), ({FinalVersion})]";
+			return $"[({StartVersion}), ({FinalVersion}))";
 		}
 	}
 }
