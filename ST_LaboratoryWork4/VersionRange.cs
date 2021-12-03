@@ -67,6 +67,18 @@ namespace ST_LaboratoryWork4
 			return new VersionRange(version, new Version(finalVersionValue / 100, finalVersionValue % 100 / 10, finalVersionValue % 10, null));
 		}
 
+		public static VersionRange GetVersionRange (string version)
+		{
+			if (version.StartsWith("~"))
+			{
+				return GetVersionRange(new Version(version[1..]));
+			}
+			else
+			{
+				throw new ArgumentException("Версия не может быть использована");
+			}
+		}
+
 		public static bool operator == (VersionRange versionRange1, VersionRange versionRange2)
 		{
 			return IsEqual(versionRange1, versionRange2);
@@ -77,7 +89,7 @@ namespace ST_LaboratoryWork4
 			return IsEqual(versionRange1, versionRange2);
 		}
 
-		private static bool IsEqual(VersionRange r1, VersionRange r2)
+		private static bool IsEqual (VersionRange r1, VersionRange r2)
 		{
 			return r1.ToString() == r2.ToString();
 		}

@@ -35,12 +35,22 @@ namespace ST_LaboratoryWork4
 		}
 
 		[Test]
-		public void GetVersiongRangeTest ()
+		public void GetVersiongRangeFromVersionTest ()
 		{
 			Assert.IsTrue(new VersionRange("1.0.0", "2.0.0") == VersionRange.GetVersionRange(new Version("1")));
 			Assert.IsTrue(new VersionRange("1.1.0", "1.2.0") == VersionRange.GetVersionRange(new Version("1.1")));
 			Assert.IsTrue(new VersionRange("1.1.1", "1.2.0") == VersionRange.GetVersionRange(new Version("1.1.1")));
 			Assert.IsTrue(new VersionRange("1.0.0-alpha", "1.0.1") == VersionRange.GetVersionRange(new Version("1.0.0-alpha")));
+		}
+
+		[Test]
+		public void GetVersionRangeFromStringTest ()
+		{
+			Assert.IsTrue(new VersionRange("1.0.0", "2.0.0") == VersionRange.GetVersionRange(("~1")));
+			Assert.Throws<ArgumentException>(() =>
+			{
+				bool metka = new VersionRange("1.0.0", "2.0.0") == VersionRange.GetVersionRange(("1"));
+			});
 		}
 	}
 }
