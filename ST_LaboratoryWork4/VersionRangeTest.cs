@@ -52,6 +52,9 @@ namespace ST_LaboratoryWork4
 			{
 				bool metka = new VersionRange("1.0.0", "2.0.0") == VersionRange.GetVersionRange(("1"));
 			});
+			Assert.IsTrue(new VersionRange("3.1.4", "3.2.0") == VersionRange.GetVersionRange("~3.1.4"));
+			Assert.IsTrue(new VersionRange("3.1.0", "3.2.0") == VersionRange.GetVersionRange("~3.1"));
+			Assert.IsTrue(new VersionRange("3.0.0", "4.0.0") == VersionRange.GetVersionRange("~3"));
 		}
 	}
 }
